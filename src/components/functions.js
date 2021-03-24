@@ -15,3 +15,14 @@ export const formatNumber = (e) => {
         return e;
     }
 }
+
+export const compareString = (tocompare, tobecompared) => {
+    let result = true;
+    for (var i = 0;i < tocompare.length; i++) {
+        if (tocompare.charAt(i) !== tobecompared.charAt(i)) {
+            result = false;
+            break;
+        }
+    }
+    return result;
+}

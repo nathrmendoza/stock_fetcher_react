@@ -8,8 +8,11 @@ function App() {
 
   const [data,setData] = useState([]);
   const [sData, setSData] = useState([]);
+  //initial load
   const [loaded, setLoad] = useState(false);
+  //single load fetch
   const [sLoad, setSLoad] = useState(false);
+  //if toggled already
   const [sToggled, setSToggled] = useState(false);
 
   //watchlist
@@ -43,15 +46,18 @@ function App() {
   }
 
   //ADD SELECTION TO WATCHLIST ARRAY
-  const addToWatchlist = (e) => {
+  const addToWatchlist = async(e) => {
     e.preventDefault();
-
     setWCheck(false);
-    let tempwlist = wlist;
-    tempwlist.push(sData.data.stock[0]);
-    setWlist(tempwlist);
-    setWCheck(true);
 
+    let tempwlist = wlist;
+    const tempresult = await fetchSingle(sData.data.stock[0].symbol);
+    tempwlist.push(tempresult.data.stock[0]);
+
+
+    setWlist(tempwlist);
+    
+    setWCheck(true);
   }
 
   //NO RESPONSE ON FETCH ALL / LOADING
@@ -63,8 +69,11 @@ function App() {
   else {
     return (
       <div className="wrapper">
-        <SelectStock stocks={data.stock} onvaluechange={checkSelectValue} addfunc={addToWatchlist}/>
+        {/* filter and result */}
+        <SelectStock stocks={data.stock} onvaluechange={checkSelectValue} addfunc={addToWatchlist} />
         <ResultRender stocktouse={sData.data} isready={sLoad} istoggled={sToggled}/>
+
+        {/* watchlist */}
         <WatchList wlistdata={wlist} isloaded={wCheck}/>
       </div>
     )

@@ -7,7 +7,6 @@ const ResultRender = ({stocktouse, isready, istoggled}) => {
     }
     else if (istoggled){
         let stock = stocktouse.stock[0];
-        console.log(stock);
         return (
             <div id="stock-result" className={`${stock.percent_change > 0 ? "positive" : "negative"} ${stock.percent_change === 0 ? "no-change" : ""}`}>
                     <h3 className="ticker-name-symbol">{stock.name}<span>{stock.symbol}</span></h3>
