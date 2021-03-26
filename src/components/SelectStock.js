@@ -6,19 +6,28 @@ const SelectStock = ({stocks, onvaluechange, addfunc}) => {
     const [selval, setval] = useState('no_val');
     //select filter
     const [filterSel, setFilterSel] = useState("");
+    const [dropTrigger, setTrigger] = useState(false);
 
     return (
         <div className="filters-controls">
-            <input type="text" placeholder="Search" id="select-search" onChange={ev=>{setFilterSel(ev.target.value);}}/>
-            <select id="stock-list" value={selval} onChange={ev=>{onvaluechange(ev); setval(ev.target.value)}}>
-                <option value="no_val" disabled>Stocks</option>
-                {stocks.map((stock,index) => {
-                    if (compareString(filterSel.toUpperCase(), stock.symbol)) 
-                        return (<option key={index} value={stock.symbol}>{stock.symbol}</option>)
-                    else 
-                        return(<></>)
-                })}
-            </select>
+            <input type="text" placeholder="Search" id="select-search" onChange={ev=>{setFilterSel(ev.target.value); if(ev.target.value.length > 0 && !dropTrigger) setTrigger(true); else if (ev.target.value.length <= 0) setTrigger(false);}}/>
+            <div id="sym-dropdown">
+                <div id="sym-selected" onClick={()=>{setTrigger(!dropTrigger)}}>{selval === "no_val" ? "Stocks" : selval}</div>
+                <ul id="drop-list" className={dropTrigger ? "active" : ""}>
+                    {stocks.map((stock,index) => {
+                        if (compareString(filterSel.toUpperCase(), stock.symbol)) 
+                            return (<li key={index} onClick={()=>{onvaluechange(stock.symbol); setval(stock.symbol); setTrigger(!dropTrigger)}}>{stock.symbol}</li>)
+                        else {
+                            if (index+1 === stocks.length) {
+                                return (<li className="last-no-result" key={index} onClick={()=>{setTrigger(!dropTrigger)}}>No Result</li>)
+                            }
+                            else
+                                return (null)
+
+                        }
+                    })}
+                </ul>
+            </div>
             <button type='button' onClick={ev=>addfunc(ev)}>Add to Watchlist</button>
         </div>
     )

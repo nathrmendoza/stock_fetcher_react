@@ -1,0 +1,205 @@
+@import url("https://fonts.googleapis.com/css2?family=Ubuntu+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap");
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+  display: block;
+}
+
+body {
+  line-height: 1;
+}
+
+ol, ul {
+  list-style: none;
+}
+
+blockquote, q {
+  quotes: none;
+}
+
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content: '';
+  content: none;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+body {
+  font-family: 'Ubuntu Mono', monospace;
+}
+
+* {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+h1, h2, h3, h4, h5, h6, th {
+  font-family: 'Ubuntu Mono', monospace;
+  font-weight: 700;
+}
+
+a, p, label, button, td, select, li, input {
+  font-family: 'Ubuntu Mono', monospace;
+  font-weight: 400;
+}
+
+h1 {
+  font-size: 56px;
+  line-height: 64px;
+}
+
+h2 {
+  font-size: 42px;
+  line-height: 52px;
+}
+
+h3 {
+  font-size: 36px;
+  line-height: 48px;
+}
+
+h4 {
+  font-size: 32px;
+  line-height: 42px;
+}
+
+h5 {
+  font-size: 26px;
+  line-height: 32px;
+}
+
+h6 {
+  font-size: 24px;
+  line-height: 30px;
+}
+
+a, p, label, button, td, select {
+  font-size: 18px;
+  line-height: 24px;
+}
+
+li {
+  font-size: 18px;
+  line-height: 18px;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  /* 1px wider than Lion. */
+  /* This is more usable for users trying to click it. */
+  background-color: rgba(0, 0, 0, 0.05);
+  -webkit-border-radius: 100px;
+}
+
+/* hover effect for both scrollbar area, and scrollbar 'thumb' */
+::-webkit-scrollbar:hover {
+  background-color: rgba(0, 0, 0, 0.09);
+}
+
+/* The scrollbar 'thumb' ...that marque oval shape in a scrollbar */
+::-webkit-scrollbar-thumb:vertical {
+  /* This is the EXACT color of Mac OS scrollbars. 
+	   Yes, I pulled out digital color meter */
+  background: rgba(0, 0, 0, 0.4);
+  -webkit-border-radius: 100px;
+}
+
+::-webkit-scrollbar-thumb:vertical:active {
+  background: rgba(0, 0, 0, 0.61);
+  /* Some darker color when you click it */
+  -webkit-border-radius: 100px;
+}
+
+#sym-dropdown {
+  width: 120px;
+}
+
+#sym-dropdown #sym-selected {
+  width: 100%;
+  padding: 5px 26px;
+  text-align: center;
+  cursor: pointer;
+  background: #3F66DA url("../images/down.png");
+  background-size: 14px;
+  background-position: calc(100% - 8px) center;
+  background-repeat: no-repeat;
+  color: white;
+}
+
+#sym-dropdown #drop-list {
+  display: none;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  height: auto;
+  max-height: 230px;
+  overflow-y: auto;
+}
+
+#sym-dropdown #drop-list li {
+  width: 100%;
+  padding: 5px;
+  color: white;
+  text-align: center;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  cursor: pointer;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  -webkit-transition: all 100ms;
+  transition: all 100ms;
+}
+
+#sym-dropdown #drop-list li:last-child {
+  border-bottom: none;
+}
+
+#sym-dropdown #drop-list li:hover {
+  background: #3F66DA;
+}
+
+#sym-dropdown #drop-list li.removed {
+  display: none;
+}
+
+#sym-dropdown #drop-list.active {
+  display: block;
+}
+
+#sym-dropdown #drop-list .last-no-result:last-child {
+  display: none;
+}
+
+#sym-dropdown #drop-list .last-no-result:first-child {
+  display: block !important;
+}
+/*# sourceMappingURL=main.css.map */

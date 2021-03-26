@@ -33,9 +33,9 @@ function App() {
 
   //FETCH SELECT VALUE
   const checkSelectValue = async(e) =>{
-    if (e.target.value !== "no_val") {
+    if (e !== "no_val") {
       setSLoad(false);
-      const tempresult = await fetchSingle(e.target.value);
+      const tempresult = await fetchSingle(e);
       setSData(tempresult);
       
       if (!sToggled);
@@ -49,13 +49,28 @@ function App() {
   const addToWatchlist = async(e) => {
     e.preventDefault();
     setWCheck(false);
+    let tempcheck = true;
 
     let tempwlist = wlist;
     const tempresult = await fetchSingle(sData.data.stock[0].symbol);
-    tempwlist.push(tempresult.data.stock[0]);
 
+    if (tempwlist.length > 0) {
+      for (var i=0; i<tempwlist.length; i++) {
+        console.log(tempwlist[i].name + " : " + tempresult.data.stock[0].name);
+        if (tempwlist[i].name === tempresult.data.stock[0].name) {
+          tempcheck = false;
+          break;
+        }
+      }
+      if (tempcheck)
+        tempwlist.push(tempresult.data.stock[0]);
+    }else {
+        tempwlist.push(tempresult.data.stock[0]);
+    }
 
-    setWlist(tempwlist);
+    
+    if(tempcheck) 
+      setWlist(tempwlist);
     
     setWCheck(true);
   }
