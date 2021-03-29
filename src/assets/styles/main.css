@@ -175,6 +175,12 @@ b, strong {
   padding: 24px;
 }
 
+.rcontent h2 {
+  color: white;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+
 #sym-dropdown {
   width: 100px;
   position: relative;
@@ -413,12 +419,6 @@ b, strong {
 #watchlist .top {
   width: 100%;
   margin-bottom: 14px;
-}
-
-#watchlist .top h2 {
-  color: white;
-  font-weight: 700;
-  margin-bottom: 24px;
 }
 
 #watchlist .top #clear-watchlist {
@@ -660,5 +660,12 @@ b, strong {
 
 #confirmation-clear .window .clear-confirm-response span:last-child:hover {
   background: #ca3729;
+}
+
+.no-watchers {
+  width: 100%;
+  padding: 42px 24px;
+  color: white;
+  text-align: center;
 }
 /*# sourceMappingURL=main.css.map */

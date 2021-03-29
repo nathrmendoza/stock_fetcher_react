@@ -104,7 +104,8 @@ $dred :#ca3729;
 	background: linear-gradient(90deg, rgba(30,59,112,1) 0%, rgba(41,83,155,1) 100%); padding-left: 290px;}
 #sidebar{position: fixed; top: 0; left: 0; height: 100%; min-height: 100vh; padding: 12px;
 	width: 290px; background: rgba(0,0,0,0.25); z-index: 1000; color: white;}
-.rcontent {width: 100%; min-height: 100vh; padding: 24px;}
+.rcontent {width: 100%; min-height: 100vh; padding: 24px;
+	h2{color: white; font-weight: 700; margin-bottom: 12px;}}
 
 #sym-dropdown{width: 100px; position: relative;
     #sym-selected{width: 100%; padding: 5px 26px; text-align: center; cursor: pointer;
@@ -165,7 +166,6 @@ $dred :#ca3729;
 
 #watchlist {
 	.top{width: 100%; margin-bottom: 14px;
-		h2{color: white; font-weight: 700; margin-bottom: 24px;}
 		#clear-watchlist {background: $red url('../images/trash.png'); background-size: 20px!important; background-position: 5px center!important;background-repeat: no-repeat!important; 
 			color: white; padding: 5px 5px 5px 34px; border: none; border-radius: 5px; display: block; cursor: pointer;
 			&:hover{background: $dred url('../images/trash.png');}
@@ -223,3 +223,5 @@ $dred :#ca3729;
 		}
 	}
 }
+
+.no-watchers {width: 100%; padding: 42px 24px; color: white; text-align: center;}

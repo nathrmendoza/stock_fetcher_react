@@ -12,7 +12,7 @@ const WatchItem = ({witemdata, removeitem}) => {
                     <div className="confirm-dialog" style={{display : `${removeConfirm ? 'block' : 'none'}`}}>
                         Will remove <b>{witemdata.symbol}</b> from watchlist.
                         <div className="remove-confirm-response">
-                            <span onClick={(ev)=>removeitem(ev)}>Yes</span>
+                            <span onClick={()=>{setRemoveConfirm(false);removeitem(witemdata); }}>Yes</span>
                             <span onClick={()=>setRemoveConfirm(false)}>No</span>
                         </div>
                     </div>

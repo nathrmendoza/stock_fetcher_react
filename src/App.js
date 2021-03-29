@@ -88,6 +88,24 @@ function App() {
     setWCheck(true);
   }
 
+  //clear watchlist data and remove from localstorage
+  const clearWatchlist = (e) => {
+    e.preventDefault();
+    setWlist([]);
+    localStorage.removeItem('watchlist_data');
+  }
+  
+  //clear one
+  const clearOneWatcher = (e) => {
+    let tempwlist = wlist.filter(item=>{
+      return item.symbol !== e.symbol;
+    });
+    setWlist(tempwlist);
+    localStorage.setItem('watchlist_data', JSON.stringify(tempwlist));
+  }
+
+
+  //RENDER
   //NO RESPONSE ON FETCH ALL / LOADING
   if (!loaded) {
     return <FullScreenLoad/>
@@ -105,7 +123,8 @@ function App() {
 
         {/* watchlist */}
         <div className="rcontent">
-          <WatchList wlistdata={wlist} isloaded={wCheck}/>
+            <h2>Stock Watchlist</h2>
+          <WatchList wlistdata={wlist} isloaded={wCheck} clearAll={clearWatchlist} clearOne={clearOneWatcher}/>
         </div>
       </div>
     )

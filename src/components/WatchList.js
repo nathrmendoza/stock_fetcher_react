@@ -2,13 +2,8 @@ import React, {useState} from 'react'
 import WatchItem from './WatchItem'
 import Loading from './Loading'
 
-const WatchList = ({wlistdata, isloaded}) => {
+const WatchList = ({wlistdata, isloaded, clearAll, clearOne}) => {
     const [confirmClear, setConfirmClear] = useState(false);
-
-    const removeItemW = (e) => {
-        e.preventDefault();
-        console.log('removed');
-    }
 
     if (wlistdata.length > 0) {
         if (!isloaded) {
@@ -17,29 +12,28 @@ const WatchList = ({wlistdata, isloaded}) => {
         else {
             return (
                 <div id="watchlist">
-
+                    {/* confirm popup */}
                     <div id="confirmation-clear" style={{display : confirmClear ? 'flex' : 'none'}}>
                         <div className="window">
                             <h4>You are about to clear your watch list, are you sure?</h4>
                         <div className="clear-confirm-response">
-                            <span>Yes</span>
+                            <span onClick={(ev)=>{setConfirmClear(false);clearAll(ev);}}>Yes</span>
                             <span onClick={()=>setConfirmClear(false)}>No</span>
                         </div>
                         </div>
                     </div>
                     
                     <div className="top">
-                        <h2>Stock Watchlist</h2>
                         <button type="button" id="clear-watchlist" onClick={()=>setConfirmClear(true)}>Clear Watchlist</button>
                     </div>
                     <div className="watchlist-container">
-                        {wlistdata.map((e,index)=><WatchItem key={index} witemdata={e} removeitem={removeItemW}/>)}
+                        {wlistdata.map((e,index)=><WatchItem key={index} witemdata={e} removeitem={clearOne}/>)}
                     </div>
                 </div>
             )
         }
     }else {
-        return <div>No watchers yet..</div>
+        return <div className="no-watchers"><h5>No watchers yet. <br/>Check the sidebar(on the left) and add some.</h5></div>
     }
 }
 
