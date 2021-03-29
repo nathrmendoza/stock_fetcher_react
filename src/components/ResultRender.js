@@ -1,20 +1,27 @@
 import React from 'react'
 import {formatNumber} from './functions'
+import Loading from './Loading'
 
 const ResultRender = ({stocktouse, isready, istoggled}) => {
     if (!isready && istoggled) {
-        return <div>Loading Result...</div>
+        return <Loading />
     }
     else if (istoggled){
         let stock = stocktouse.stock[0];
         return (
             <div id="stock-result" className={`${stock.percent_change > 0 ? "positive" : "negative"} ${stock.percent_change === 0 ? "no-change" : ""}`}>
-                    <h3 className="ticker-name-symbol">{stock.name}<span>{stock.symbol}</span></h3>
+                    <h3 className="ticker-name-symbol">{stock.name}</h3>
                     <div className="price-percent">
-                        <span className="price">{`${stock.price.currency}` + stock.price.amount}</span>
-                        <span className="percent">({stock.percent_change}%)</span>
+                        <label>Price %</label>
+                        <div className="value">
+                            <span className="price">: {`₱` + stock.price.amount}</span>
+                            <span className="percent"> ({stock.percent_change}%)</span>
+                        </div>
                     </div>
-                        <span className="volume">{formatNumber(stock.volume)}</span>
+                    <div className="volume">
+                        <label>Volume</label>
+                        <span className="value">: {formatNumber(stock.volume)}</span>
+                    </div>
             </div>
         )
     }

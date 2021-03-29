@@ -3,6 +3,7 @@ import {fetchData, fetchSingle} from './api'
 import SelectStock from './components/SelectStock'
 import ResultRender from './components/ResultRender'
 import WatchList from './components/WatchList';
+import FullScreenLoad from './components/FullScreenLoad'
 
 function App() {
 
@@ -16,11 +17,21 @@ function App() {
   const [sToggled, setSToggled] = useState(false);
 
   //watchlist
-  const [wlist, setWlist] = useState([]);
+  const [wlist, setWlist] = useState(()=>{
+    if (localStorage.getItem('watchlist_data') !== null)
+      return JSON.parse(localStorage.getItem('watchlist_data'));
+    else
+      return []
+  });
   const [wCheck, setWCheck] = useState(false);
 
   //FETCH ALL ON START
   useEffect(()=>{
+    //if wlist has data
+    if (wlist.length > 0)
+      setWCheck(true);
+
+
     const fetchApi = async() => {
       const tempdata = await fetchData();
 
@@ -68,16 +79,18 @@ function App() {
         tempwlist.push(tempresult.data.stock[0]);
     }
 
-    
-    if(tempcheck) 
+    //if no duplicate add, and save to localstorage (cache)
+    if(tempcheck) {
       setWlist(tempwlist);
+      localStorage.setItem('watchlist_data', JSON.stringify(tempwlist));
+    }
     
     setWCheck(true);
   }
 
   //NO RESPONSE ON FETCH ALL / LOADING
   if (!loaded) {
-    return <div>FETCHING DATA...</div>
+    return <FullScreenLoad/>
   }
   
   //HAS NOW RESPONSE BEGIN RENDER
@@ -85,11 +98,15 @@ function App() {
     return (
       <div className="wrapper">
         {/* filter and result */}
-        <SelectStock stocks={data.stock} onvaluechange={checkSelectValue} addfunc={addToWatchlist} />
-        <ResultRender stocktouse={sData.data} isready={sLoad} istoggled={sToggled}/>
+        <div id="sidebar">
+          <SelectStock stocks={data.stock} onvaluechange={checkSelectValue} addfunc={addToWatchlist} />
+          <ResultRender stocktouse={sData.data} isready={sLoad} istoggled={sToggled}/>
+        </div>
 
         {/* watchlist */}
-        <WatchList wlistdata={wlist} isloaded={wCheck}/>
+        <div className="rcontent">
+          <WatchList wlistdata={wlist} isloaded={wCheck}/>
+        </div>
       </div>
     )
   }
