@@ -16,7 +16,7 @@ export const fetchData = async() => {
 export const fetchSingle = async(param) => {
     try {
         const result = await axios.get(url+'/stocks/'+param);
-        return result;
+        return result.data.stock[0];
     }
     catch(error) {
         console.log('Encountered an error searching for stock: ' + error);

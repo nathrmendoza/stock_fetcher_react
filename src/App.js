@@ -15,6 +15,7 @@ function App() {
   const [sLoad, setSLoad] = useState(false);
   //if toggled already
   const [sToggled, setSToggled] = useState(false);
+  const [wToggled, setWToggled] = useState(false);
 
   //watchlist
   const [wlist, setWlist] = useState(()=>{
@@ -27,9 +28,26 @@ function App() {
 
   //FETCH ALL ON START
   useEffect(()=>{
-    //if wlist has data
-    if (wlist.length > 0)
-      setWCheck(true);
+    //if wlist has data, update function
+    let timer
+    if (wlist.length > 0) {
+
+      //init update watchlist
+      updateWatchlist().then(data => {
+        setWlist(data);
+        console.log(data);
+        setWCheck(true);
+      });
+
+      //update per 1 minute
+       timer = setInterval(()=>{
+          updateWatchlist().then(data => {
+            setWlist(data);
+            console.log(data);
+            setWCheck(true);
+          })
+      }, 60000)
+    }
 
 
     const fetchApi = async() => {
@@ -40,6 +58,12 @@ function App() {
     }
 
     fetchApi();
+
+    return(() => {
+        if (timer) clearInterval(timer);
+    });
+
+
   },[]);
 
   //FETCH SELECT VALUE
@@ -56,6 +80,11 @@ function App() {
     }
   }
 
+  //UPDATE WATCHLIST
+  const updateWatchlist = async() => {
+    return Promise.all(wlist.map(item => fetchSingle(item.symbol)));
+  }
+
   //ADD SELECTION TO WATCHLIST ARRAY
   const addToWatchlist = async(e) => {
     e.preventDefault();
@@ -63,20 +92,20 @@ function App() {
     let tempcheck = true;
 
     let tempwlist = wlist;
-    const tempresult = await fetchSingle(sData.data.stock[0].symbol);
+    const tempresult = await fetchSingle(sData.symbol);
 
     if (tempwlist.length > 0) {
       for (var i=0; i<tempwlist.length; i++) {
-        console.log(tempwlist[i].name + " : " + tempresult.data.stock[0].name);
-        if (tempwlist[i].name === tempresult.data.stock[0].name) {
+        console.log(tempwlist[i].name + " : " + tempresult.name);
+        if (tempwlist[i].name === tempresult.name) {
           tempcheck = false;
           break;
         }
       }
       if (tempcheck)
-        tempwlist.push(tempresult.data.stock[0]);
+        tempwlist.push(tempresult);
     }else {
-        tempwlist.push(tempresult.data.stock[0]);
+        tempwlist.push(tempresult);
     }
 
     //if no duplicate add, and save to localstorage (cache)
@@ -118,7 +147,7 @@ function App() {
         {/* filter and result */}
         <div id="sidebar">
           <SelectStock stocks={data.stock} onvaluechange={checkSelectValue} addfunc={addToWatchlist} />
-          <ResultRender stocktouse={sData.data} isready={sLoad} istoggled={sToggled}/>
+          <ResultRender stocktouse={sData} isready={sLoad} istoggled={sToggled}/>
         </div>
 
         {/* watchlist */}
